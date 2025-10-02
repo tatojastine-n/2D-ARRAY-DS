@@ -1,2 +1,3 @@
 # 2D-ARRAY-DS
-•	This code tackles the "hourglass sum" challenge on a 6x6 grid, finding the highest sum from any hourglass pattern (three top numbers, one middle, three bottom, like an X). In main, it reads six lines of six integers each, parsing them with ltrim, rtrim, and split helpers into a 2D vector. The hourglassSum function uses nested loops (over rows 0-3 and columns 0-3) to check all 16 possible shapes, summing their seven cells and updating the max (initialized to INT_MIN). It then outputs the max sum to a file via OUTPUT_PATH. 
+This program calculates the maximum hourglass sum in a 6×6 array by checking every possible hourglass shape, finding their sums, and returning the largest one.
+
