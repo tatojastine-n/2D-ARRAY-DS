@@ -1,98 +1,66 @@
-#include <bits/stdc++.h>
+using System.CodeDom.Compiler;
+using System.Collections.Generic;
+using System.Collections;
+using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.Serialization;
+using System.Text.RegularExpressions;
+using System.Text;
+using System;
 
-using namespace std;
+class Result
+{
 
-string ltrim(const string &);
-string rtrim(const string &);
-vector<string> split(const string &);
+    /*
+     * Complete the 'hourglassSum' function below.
+     *
+     * The function is expected to return an INTEGER.
+     * The function accepts 2D_INTEGER_ARRAY arr as parameter.
+     */
 
-/*
- * Complete the 'hourglassSum' function below.
- *
- * The function is expected to return an INTEGER.
- * The function accepts 2D_INTEGER_ARRAY arr as parameter.
- */
-
-int hourglassSum(vector<vector<int>> arr) {
-      int max_sum = INT_MIN; 
-    for (int i = 0; i <= 3; i++) {
-        for (int j = 0; j <= 3; j++) {
-            int current_sum = arr[i][j] + arr[i][j+1] + arr[i][j+2]
-                            + arr[i+1][j+1]
-                            + arr[i+2][j] + arr[i+2][j+1] + arr[i+2][j+2];
-            if (current_sum > max_sum) {
-                max_sum = current_sum;
+    public static int hourglassSum(List<List<int>> arr)
+    {
+        int maxSum = int.MinValue;
+        for (int i = 0; i <= 3; i++)
+        {
+            for (int j = 0; j <= 3; j++)
+            {
+                int sum = arr[i][j] + arr[i][j + 1] + arr[i][j + 2] +
+                          arr[i + 1][j + 1] +
+                          arr[i + 2][j] + arr[i + 2][j + 1] + arr[i + 2][j + 2];
+                if (sum > maxSum)
+                {
+                    maxSum = sum;
+                }
             }
         }
+        return maxSum;
     }
-    return max_sum;
+
 }
 
-int main()
+class Solution
 {
-    ofstream fout(getenv("OUTPUT_PATH"));
+    public static void Main(string[] args)
+    {
+        TextWriter textWriter = new StreamWriter(@System.Environment.GetEnvironmentVariable("OUTPUT_PATH"), true);
 
-    vector<vector<int>> arr(6);
+        List<List<int>> arr = new List<List<int>>();
 
-    for (int i = 0; i < 6; i++) {
-        arr[i].resize(6);
-
-        string arr_row_temp_temp;
-        getline(cin, arr_row_temp_temp);
-
-        vector<string> arr_row_temp = split(rtrim(arr_row_temp_temp));
-
-        for (int j = 0; j < 6; j++) {
-            int arr_row_item = stoi(arr_row_temp[j]);
-
-            arr[i][j] = arr_row_item;
+        for (int i = 0; i < 6; i++)
+        {
+            arr.Add(Console.ReadLine().TrimEnd().Split(' ').ToList().Select(arrTemp => Convert.ToInt32(arrTemp)).ToList());
         }
+
+        int result = Result.hourglassSum(arr);
+
+        textWriter.WriteLine(result);
+
+        textWriter.Flush();
+        textWriter.Close();
     }
-
-    int result = hourglassSum(arr);
-
-    fout << result << "\n";
-
-    fout.close();
-
-    return 0;
-}
-
-string ltrim(const string &str) {
-    string s(str);
-
-    s.erase(
-        s.begin(),
-        find_if(s.begin(), s.end(), not1(ptr_fun<int, int>(isspace)))
-    );
-
-    return s;
-}
-
-string rtrim(const string &str) {
-    string s(str);
-
-    s.erase(
-        find_if(s.rbegin(), s.rend(), not1(ptr_fun<int, int>(isspace))).base(),
-        s.end()
-    );
-
-    return s;
-}
-
-vector<string> split(const string &str) {
-    vector<string> tokens;
-
-    string::size_type start = 0;
-    string::size_type end = 0;
-
-    while ((end = str.find(" ", start)) != string::npos) {
-        tokens.push_back(str.substr(start, end - start));
-
-        start = end + 1;
-    }
-
-    tokens.push_back(str.substr(start));
-
-    return tokens;
 }
